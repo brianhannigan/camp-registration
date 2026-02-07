@@ -1,10 +1,14 @@
 from __future__ import annotations
 
 import json
+import sys
 import tkinter as tk
 from dataclasses import dataclass
 from pathlib import Path
 from tkinter import filedialog, messagebox, ttk
+
+if __package__ in {None, ""}:
+    sys.path.append(str(Path(__file__).resolve().parents[1]))
 
 from camp_registration.web_form import (
     CheckboxField,

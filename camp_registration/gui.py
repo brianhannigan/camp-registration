@@ -1,7 +1,12 @@
 from __future__ import annotations
 
+import sys
 import tkinter as tk
+from pathlib import Path
 from tkinter import filedialog, messagebox, ttk
+
+if __package__ in {None, ""}:
+    sys.path.append(str(Path(__file__).resolve().parents[1]))
 
 from camp_registration.registry import CampRegistry, DEFAULT_SESSIONS
 
