@@ -5,6 +5,7 @@ from camp_registration.web_form import (
     CheckboxField,
     FormConfig,
     FormField,
+    ActionStep,
     SelectField,
     _load_config,
     config_to_dict,
@@ -19,6 +20,7 @@ def test_config_to_dict_round_trip(tmp_path: Path):
         selects=[SelectField(selector="#session", value="archery")],
         submit_selector="button[type='submit']",
         wait_after_submit_ms=3000,
+        actions=[ActionStep(kind="click", selector=".continue")],
     )
 
     payload = config_to_dict(config)
@@ -33,3 +35,4 @@ def test_config_to_dict_round_trip(tmp_path: Path):
     assert loaded.selects == config.selects
     assert loaded.submit_selector == config.submit_selector
     assert loaded.wait_after_submit_ms == config.wait_after_submit_ms
+    assert loaded.actions == config.actions

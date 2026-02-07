@@ -25,6 +25,13 @@ class SelectField:
 
 
 @dataclass
+class ActionStep:
+    kind: str
+    selector: str | None = None
+    wait_ms: int | None = None
+
+
+@dataclass
 class FormConfig:
     url: str
     fields: list[FormField] = field(default_factory=list)
@@ -32,6 +39,7 @@ class FormConfig:
     selects: list[SelectField] = field(default_factory=list)
     submit_selector: str | None = None
     wait_after_submit_ms: int = 2000
+    actions: list[ActionStep] = field(default_factory=list)
 
 
 def _load_config(path: Path) -> FormConfig:
@@ -39,6 +47,7 @@ def _load_config(path: Path) -> FormConfig:
     fields = [FormField(**item) for item in data.get("fields", [])]
     checkboxes = [CheckboxField(**item) for item in data.get("checkboxes", [])]
     selects = [SelectField(**item) for item in data.get("selects", [])]
+    actions = [ActionStep(**item) for item in data.get("actions", [])]
     return FormConfig(
         url=data["url"],
         fields=fields,
@@ -46,6 +55,7 @@ def _load_config(path: Path) -> FormConfig:
         selects=selects,
         submit_selector=data.get("submit_selector"),
         wait_after_submit_ms=data.get("wait_after_submit_ms", 2000),
+        actions=actions,
     )
 
 
@@ -57,6 +67,7 @@ def config_to_dict(config: FormConfig) -> dict[str, object]:
         "selects": [select.__dict__ for select in config.selects],
         "submit_selector": config.submit_selector,
         "wait_after_submit_ms": config.wait_after_submit_ms,
+        "actions": [action.__dict__ for action in config.actions],
     }
 
 
@@ -74,6 +85,12 @@ def _fill_form(page, config: FormConfig) -> None:
 
     for select in config.selects:
         page.select_option(select.selector, select.value)
+
+    for action in config.actions:
+        if action.kind == "click" and action.selector:
+            page.click(action.selector)
+        elif action.kind == "wait":
+            page.wait_for_timeout(action.wait_ms or 0)
 
     if config.submit_selector:
         page.click(config.submit_selector)

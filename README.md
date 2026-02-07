@@ -80,6 +80,10 @@ Example config:
   "selects": [
     {"selector": "#shirt-size", "value": "M"}
   ],
+  "actions": [
+    {"kind": "click", "selector": "input[type='submit'][value='Continue']"},
+    {"kind": "wait", "wait_ms": 1500}
+  ],
   "submit_selector": "button[type='submit']",
   "wait_after_submit_ms": 3000
 }
