@@ -18,6 +18,18 @@ Launch the Tkinter-based UI to register campers and manage JSON exports:
 python -m camp_registration.gui
 ```
 
+If you're inside the `camp_registration` folder, run the script directly instead:
+
+```bash
+python gui.py
+```
+
+From elsewhere, you can also use the convenience launcher at the repo root:
+
+```bash
+python run_gui.py
+```
+
 ## Website form automation
 
 To automatically fill a website registration form (including option boxes, check boxes,
@@ -37,6 +49,17 @@ python -m camp_registration.form_builder
 ```
 
 Use the form to add fields, checkboxes, and select options, then save the JSON file.
+If you're inside the `camp_registration` folder, run the script directly:
+
+```bash
+python form_builder.py
+```
+
+Or use the convenience launcher from the repo root:
+
+```bash
+python run_form_builder.py
+```
 
 Example config:
 
