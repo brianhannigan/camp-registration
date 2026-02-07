@@ -40,11 +40,13 @@ class CampRegistry:
     def list_campers(self) -> list[Camper]:
         return list(self.campers)
 
-    def export_json(self, path: Path) -> None:
+    def export_json(self, path: Path | str) -> None:
+        path = Path(path)
         payload = [asdict(camper) for camper in self.campers]
         path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
-    def load_from_json(self, path: Path) -> None:
+    def load_from_json(self, path: Path | str) -> None:
+        path = Path(path)
         data = json.loads(path.read_text(encoding="utf-8"))
         self.campers = [Camper(**entry) for entry in data]
 

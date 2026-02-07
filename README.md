@@ -10,6 +10,14 @@ python -m camp_registration.cli list
 python -m camp_registration.cli export campers.json
 ```
 
+## Interactive UI
+
+Launch the Tkinter-based UI to register campers and manage JSON exports:
+
+```bash
+python -m camp_registration.gui
+```
+
 ## Development
 
 ```bash
