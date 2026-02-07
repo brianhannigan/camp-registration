@@ -1,0 +1,14 @@
+[project]
+name = "camp-registration"
+version = "0.1.0"
+description = "Camp registration program."
+readme = "README.md"
+requires-python = ">=3.10"
+
+[project.scripts]
+camp-registration = "camp_registration.cli:main"
+camp-registration-gui = "camp_registration.gui:main"
+camp-registration-web-form = "camp_registration.web_form:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
