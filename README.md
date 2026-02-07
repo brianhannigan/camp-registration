@@ -28,6 +28,16 @@ config with selectors and values, then run:
 python -m camp_registration.web_form path/to/form_config.json
 ```
 
+### Config builder GUI
+
+If you'd like a visual way to create the JSON config, launch the builder UI:
+
+```bash
+python -m camp_registration.form_builder
+```
+
+Use the form to add fields, checkboxes, and select options, then save the JSON file.
+
 Example config:
 
 ```json

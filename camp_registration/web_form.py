@@ -5,8 +5,6 @@ import json
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from playwright.sync_api import sync_playwright
-
 
 @dataclass
 class FormField:
@@ -51,6 +49,17 @@ def _load_config(path: Path) -> FormConfig:
     )
 
 
+def config_to_dict(config: FormConfig) -> dict[str, object]:
+    return {
+        "url": config.url,
+        "fields": [field.__dict__ for field in config.fields],
+        "checkboxes": [checkbox.__dict__ for checkbox in config.checkboxes],
+        "selects": [select.__dict__ for select in config.selects],
+        "submit_selector": config.submit_selector,
+        "wait_after_submit_ms": config.wait_after_submit_ms,
+    }
+
+
 def _fill_form(page, config: FormConfig) -> None:
     page.goto(config.url, wait_until="domcontentloaded")
 
@@ -72,6 +81,8 @@ def _fill_form(page, config: FormConfig) -> None:
 
 
 def run(config_path: Path, headless: bool) -> None:
+    from playwright.sync_api import sync_playwright
+
     config = _load_config(config_path)
 
     with sync_playwright() as playwright:

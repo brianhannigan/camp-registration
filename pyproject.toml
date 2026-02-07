@@ -9,6 +9,7 @@ requires-python = ">=3.10"
 camp-registration = "camp_registration.cli:main"
 camp-registration-gui = "camp_registration.gui:main"
 camp-registration-web-form = "camp_registration.web_form:main"
+camp-registration-form-builder = "camp_registration.form_builder:main"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
